@@ -1,0 +1,47 @@
+<?php
+
+ //$id = $_POST['id'];
+ //$pwd = $_POST['pwd'];
+
+ //echo $id," ",
+
+$db_host = "localhost";
+$db_user = "root";
+$db_pwd = "1206";
+$db_name = "testdb";
+
+$conn = new mysqli($db_host, $db_user, $db_pwd, $db_name);
+
+if(!$conn){
+    echo "db_error";
+    return;
+}
+
+$id = $_POST['id'];
+$pwd = $_POST['pwd'];
+
+$sql = "select * from test_table where name='$id' and pwd='$pwd';"; //DB에서 id, pwd 조회회
+$result = mysqli_query($conn, $sql);
+
+$result_login = 0;
+
+while($row = mysqli_fetch_array($result)){
+    //echo $row['name'];
+    //echo $row['id'];
+    //echo $row['pwd'];
+    //echo $row['birth'];
+    //echo "<br>";
+    $result_login = 1;
+}
+
+$link = ""; //login page 넘어갈 때 이용할 Link
+
+if($result_login){
+    $link = "main.php"; //login 성공 후, main.php page로 이동한다.
+} else{
+    $link = "login.php"; // login 실패 시, login.php page로 돌아간다
+}
+echo("<script> location.replace('$link'); </script>");
+
+mysqli_close($conn);
+?>
