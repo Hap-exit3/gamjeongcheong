@@ -7,10 +7,11 @@
         <label for="friend">Friends</label>
   <select name="Friends List" id="friend">
     <option value="권도희">권도희</option>
-    <option value="서혜랑">서혜랑</option>
-    <option value="안희진">안희진</option>
+    <?php
+    include("friendsRequest.php")
+    ?>
   </select>
-  <input type="submit" value="Submit" />
+  <input type="submit" value="Submit"/>
     </form>
 </body>
 </html>
