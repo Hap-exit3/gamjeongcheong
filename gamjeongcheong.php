@@ -3,7 +3,7 @@
 $host = "localhost";
 $user = "root";
 $pwd = "1206";
-$db_name = "testdb";
+$db_name = "gamjeongcheongdb";
 
 $conn = new mysqli($host, $user, $pwd, $db_name);
 
@@ -14,7 +14,7 @@ if(!$conn){
     echo "succeed connet db";
 }
 
-$sql = "select * from test_table;";
+$sql = "select * from users;";
 $result = mysqli_query($conn, $sql);
 while($row = mysqli_fetch_array($result)){
     echo $row['name'];
