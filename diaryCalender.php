@@ -10,7 +10,10 @@ $year = date('Y');
 $month = date('m');
 
 // 현재 월의 일기 데이터 조회
-$sql = "SELECT DATE_FORMAT(date, '%Y-%m-%d') AS diary_date, emotions_pkey FROM diary_entry WHERE YEAR(date) = ? AND MONTH(date) = ?";
+$sql = "SELECT DATE_FORMAT(insert_date, '%Y-%m-%d') AS diary_date, emotions_pkey 
+        FROM diary_entry 
+        WHERE YEAR(insert_date) = ? AND MONTH(insert_date) = ?";
+
 $stmt = $conn->prepare($sql);
 $stmt->bind_param("ii", $year, $month);
 $stmt->execute();
