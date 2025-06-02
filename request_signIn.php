@@ -1,20 +1,12 @@
 <?php
-
- //$id = $_POST['id'];
- //$pwd = $_POST['pwd'];
-
- //echo $id," ",
-
 $db_host = "localhost";
 $db_user = "root";
-
 $db_pwd = "1206";
-
 $db_name = "gamjeongcheongdb";
 
 $conn = new mysqli($db_host, $db_user, $db_pwd, $db_name);
 
-if(!$conn){
+if (!$conn) {
     echo "db_error";
     return;
 }
@@ -22,27 +14,23 @@ if(!$conn){
 $id = $_POST['id'];
 $password = $_POST['password'];
 
-$sql = "select * from users where id='$id' and password='$password';"; //DB에서 id, pwd 조회
+$sql = "SELECT pkey, id, name FROM users WHERE id='$id' AND password='$password'";
 $result = mysqli_query($conn, $sql);
 
 $result_login = 0;
+$user_pkey = null;
 
-while($row = mysqli_fetch_array($result)){
-    //echo $row['name'];
-    //echo $row['id'];
-    //echo $row['pwd'];
-    //echo $row['birth'];
-    //echo "<br>";
+while ($row = mysqli_fetch_array($result)) {
     $result_login = 1;
+    $user_pkey = $row['pkey'];
+    $user_name = $row['name'];
+
+    // ✅ 쿠키 설정 (유효기간: 시간)
+    setcookie("user_pkey", $user_pkey, time() + 360000, "/");
+    setcookie("user_name", $user_name, time() + 360000, "/");
 }
 
-$link = ""; //login page 넘어갈 때 이용할 Link
-
-if($result_login===1){
-    $link = "main.php"; //login 성공 후, main.php page로 이동한다.
-} else{
-    $link = "signIn.php"; // login 실패 시, login.php page로 돌아간다
-}
+$link = ($result_login === 1) ? "main.php" : "signIn.php";
 echo("<script> location.replace('$link'); </script>");
 
 mysqli_close($conn);
