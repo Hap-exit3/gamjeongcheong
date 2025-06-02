@@ -1,4 +1,13 @@
 <?php
+
+setcookie("ZLZN", "콜라", time() + 3600, "/");
+echo $_COOKIE["쿠키"];
+
+ //$id = $_POST['id'];
+ //$pwd = $_POST['pwd'];
+
+ //echo $id," ",
+
 $db_host = "localhost";
 $db_user = "root";
 $db_pwd = "1206";

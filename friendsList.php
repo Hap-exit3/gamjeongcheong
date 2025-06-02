@@ -8,10 +8,11 @@
   <select name="Friends List" id="friend">
     <option value="권도희">권도희</option>
     <?php
-    include("friendsRequest.php")
+    include("friendsRequest.php");
     ?>
-  </select>
-  <input type="submit" value="Submit"/>
+    </select>
+    <input type="submit" value="Submit">
+    <input type="submit" value="로그인 하기"><br><br>
     </form>
 </body>
 </html>

@@ -13,8 +13,9 @@ if(!$conn){
 }
 
 
-$sql = "SELECT * FROM users Where users.pkey != 3;"; //DB에서 id, pwd 조회
-$result = mysqli_query($conn, $sql);
+$current_user_id = 3;
+
+$sql = "SELECT pkey, name FROM users Where users.pkey != $current_user_id;"; //DB에서 id, pwd 조회
 
 
 while($row = mysqli_fetch_array($result)){
