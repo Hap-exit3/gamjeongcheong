@@ -1,5 +1,5 @@
 <?php
-<?php include("auth.php"); ?>
+include("auth.php");
 
 
 // DB 연결
