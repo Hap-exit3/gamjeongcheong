@@ -7,7 +7,6 @@
         Name <Input type="text" name="name"><br>
         ID <Input type="text" name="id"><br>
         PWD <Input type="password" name="password"><br>
-        Email <Input type="text" email="email"><br><br>
         <input type="submit" value="회원가입">
     </form>
 </body>

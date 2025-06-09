@@ -1,4 +1,5 @@
 <?php
+include("auth.php");
 
 $db_host = "localhost";
 $db_user = "root";
@@ -11,7 +12,10 @@ if(!$conn){
     echo "db_error";
     return;
 }    
-
+echo "User_Pkey";
+echo "jjj".$_POST['users_pkey'];
+echo "Friends_Pkey";
+echo "ll".$_POST['friends'];
 
 if (isset($_POST['users_pkey']) && isset($_POST['friends_pkey'])) {
     $users_pkey = $_POST['users_pkey'];

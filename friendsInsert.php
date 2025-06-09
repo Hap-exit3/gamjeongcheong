@@ -1,4 +1,5 @@
 <?php
+include("auth.php");
 
 $db_host = "localhost";
 $db_user = "root";
@@ -44,7 +45,7 @@ if (isset($_POST['users_pkey']) && isset($_POST['friends_pkey']) && isset($_POST
     }
 } else {
     echo "폼 데이터가 부족합니다.";
-}     
+}
 
 mysqli_close($conn);
 ?>
