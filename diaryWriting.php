@@ -1,9 +1,9 @@
 <?php
-include("auth.php");
+include("auth.php"); 
 
 
 // DB 연결
-$conn = new mysqli("localhost", "root", "1206", "gamjeongcheongdb");
+$conn = new mysqli("localhost", "root", "1234", "gamjeongcheongdb");
 if ($conn->connect_error) {
     die("DB 연결 실패: " . $conn->connect_error);
 }
@@ -154,8 +154,10 @@ $weather_id = $_POST['weather_id'] ?? null;
     <!-- 해시태그 -->
     <div class="box">
       <label>키워드</label>
-      <input type="text" name="hashtags" placeholder="#휴식, #혼자만의시간">
+      <div id="hashtag-wrapper" style="display: flex; flex-wrap: wrap; gap: 8px;"></div>
+      <button type="button" id="add-hashtag-btn">+ 태그 추가</button>
     </div>
+
 
     <!-- 메모 -->
     <div class="box">
@@ -168,6 +170,57 @@ $weather_id = $_POST['weather_id'] ?? null;
       <button type="submit">저장</button>
     </div>
   </form>
+
+<script>
+  const wrapper = document.getElementById('hashtag-wrapper');
+  const addBtn = document.getElementById('add-hashtag-btn');
+
+  function createTagInput() {
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.placeholder = '#태그입력';
+    input.style.padding = '5px';
+    input.style.fontSize = '14px';
+    input.style.minWidth = '80px';
+
+    input.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' && input.value.trim() !== '') {
+        e.preventDefault();
+
+        const tagText = input.value.trim().replace(/^#/, '');
+        if (!tagText) return;
+
+        // 보여지는 태그 span
+        const tagSpan = document.createElement('span');
+        tagSpan.textContent = '#' + tagText;
+        tagSpan.style.padding = '5px 10px';
+        tagSpan.style.backgroundColor = '#eee';
+        tagSpan.style.borderRadius = '20px';
+        tagSpan.style.fontSize = '14px';
+
+        // 실제 넘겨줄 hidden input
+        const hiddenInput = document.createElement('input');
+        hiddenInput.type = 'hidden';
+        hiddenInput.name = 'hashtags[]';
+        hiddenInput.value = tagText;
+
+        wrapper.replaceChild(tagSpan, input);
+        wrapper.appendChild(hiddenInput);
+
+        // 다시 +버튼 보이게
+        addBtn.style.display = 'inline-block';
+      }
+    });
+
+    wrapper.appendChild(input);
+    input.focus();
+    addBtn.style.display = 'none';
+  }
+
+  addBtn.addEventListener('click', createTagInput);
+</script>
+
+
 
   <!-- ✨ textarea 자동 높이 확장 스크립트 -->
   <script>
