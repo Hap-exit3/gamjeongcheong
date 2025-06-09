@@ -1,9 +1,9 @@
 <?php
-<?php include("auth.php"); ?>
+include("auth.php");
 
 
 // DB 연결
-$conn = new mysqli("localhost", "root", "1234", "gamjeongcheongdb");
+$conn = new mysqli("localhost", "root", "1206", "gamjeongcheongdb");
 if ($conn->connect_error) {
     die("DB 연결 실패: " . $conn->connect_error);
 }
