@@ -3,7 +3,7 @@
 <body>
     감정청<br><br>
     내 친구목록<br>
-    <form action="/friends.php" method="get">
+    <form action="/friends.php" method="post">
         <label for="friends_pkey">Friends</label>
          <select name="friends_pkey" id="friends_pkey">
              <?php
