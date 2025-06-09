@@ -21,7 +21,7 @@ $result = mysqli_query($conn, $sql);
 // while($row = mysqli_fetch_array($result)){
 //     echo "<option value='$row["pkey"]'>$row["name"]</option>";
 //     //echo "dk";
-//     //echo $row['id'];
+//     //echo $row['id'];1
 //     //echo $row['pwd'];
 //     //echo $row['birth'];
 //     //echo "<br>";
