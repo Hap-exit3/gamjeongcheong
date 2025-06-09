@@ -1,9 +1,9 @@
 <?php
-include("auth.php");
+include("auth.php"); 
 
 
 // DB 연결
-$conn = new mysqli("localhost", "root", "1206", "gamjeongcheongdb");
+$conn = new mysqli("localhost", "root", "1234", "gamjeongcheongdb");
 if ($conn->connect_error) {
     die("DB 연결 실패: " . $conn->connect_error);
 }
@@ -130,7 +130,10 @@ $emotionIcon = $emojiMap[$emotion] ?? '🙂';
         <div class="keyword-box">
             <?php if (count($tags) > 0): ?>
                 <?php foreach ($tags as $tag): ?>
-                    <span><?= $tag ?></span>
+                    <?php $tagName = ltrim($tag, '#'); ?>
+                    <a href="tagSearch.php?tag=<?= urlencode($tagName) ?>">
+                        <span>#<?= htmlspecialchars($tagName) ?></span>
+                    </a>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>해시태그 없음</p>

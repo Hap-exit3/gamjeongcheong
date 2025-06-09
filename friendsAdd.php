@@ -16,6 +16,7 @@
         <label>친구 후보:</label><br>
         <select name="friends_pkey">
             <?php
+
             include("auth.php");
             $conn = new mysqli("localhost", "root", "1206", "gamjeongcheongdb");
             if ($conn->connect_error) die("DB 연결 실패");
