@@ -1,5 +1,5 @@
 <?php
-<?php include("auth.php"); ?>
+include("auth.php"); 
 
 
 // DB 연결
@@ -130,7 +130,10 @@ $emotionIcon = $emojiMap[$emotion] ?? '🙂';
         <div class="keyword-box">
             <?php if (count($tags) > 0): ?>
                 <?php foreach ($tags as $tag): ?>
-                    <span><?= $tag ?></span>
+                    <?php $tagName = ltrim($tag, '#'); ?>
+                    <a href="tagSearch.php?tag=<?= urlencode($tagName) ?>">
+                        <span>#<?= htmlspecialchars($tagName) ?></span>
+                    </a>
                 <?php endforeach; ?>
             <?php else: ?>
                 <p>해시태그 없음</p>

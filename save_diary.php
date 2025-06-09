@@ -1,5 +1,5 @@
 <?php
-<?php include("auth.php"); ?>
+include("auth.php"); 
 
 
 // DB 연결
@@ -45,7 +45,9 @@ if ($stmt->affected_rows > 0) {
     $diary_entry_pkey = $conn->insert_id;
 
     // 2. 해시태그 삽입
-    $tags = array_filter(array_map('trim', explode(',', $hashtags)));
+    $hashtags = $_POST['hashtags'] ?? [];  // ← 빈 배열로 초기화!
+    $tags = array_filter(array_map('trim', (array)$hashtags));  // ← 혹시 string일 수도 있으니 강제 배열 형변환
+
     foreach ($tags as $tag) {
         if ($tag === '') continue;
 
