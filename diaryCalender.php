@@ -72,7 +72,7 @@ function getEmotionIcon($emotion) {
                     $date_str = "$year-$month-" . str_pad($day, 2, '0', STR_PAD_LEFT);
                     $emotion = $diaryData[$date_str] ?? 0;
                     $icon = getEmotionIcon($emotion);
-                    $link = "diaryDateWrite.php?date=$date_str";
+                    $link = "diaryRouter.php?date=$date_str";
                     $class = ($date_str === date('Y-m-d')) ? "today" : "";
                     echo "<td class='$class'><a href='$link'>$day<br>$icon</a></td>";
                     $day++;
