@@ -12,6 +12,14 @@ if ($conn->connect_error) {
 $step = $_POST['step'] ?? 'step1';
 $weather_id = $_POST['weather_id'] ?? null;
 $entry_date = $_GET['date'] ?? $_POST['entry_date'] ?? date("Y-m-d");
+
+// 미래 날짜 제한 처리
+$today = date("Y-m-d");
+if ($entry_date > $today) {
+    echo "<script>alert('미래 날짜에는 일기를 작성할 수 없습니다.'); window.location.href='main.php';</script>";
+    exit;
+}
+
 $formattedDate = date("Y년 m월 d일 (D)", strtotime($entry_date));
 ?>
 <!DOCTYPE html>
