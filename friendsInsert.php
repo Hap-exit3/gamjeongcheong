@@ -24,12 +24,11 @@ if (isset($_POST['users_pkey']) && isset($_POST['friends_pkey'])) {
 //echo "$check_sql";
     $check_result = $conn->query($check_sql);
 
-    if ($check_result->num_rows > 0) {
-        // 이미 친구 관계가 존재함
-        // echo "<script>
-        //         alert('이미 친구입니다.');
-        //         window.location.href = 'friendsAdd.php';
-        //       </script>";
+    if ($check_result && $check_result->num_rows > 0) {
+        echo "<script>
+                alert('팔로우 중입니다.');
+                window.location.href = 'friendsAdd.php';
+              </script>";
         exit;
     }
 
@@ -41,13 +40,8 @@ if (isset($_POST['users_pkey']) && isset($_POST['friends_pkey'])) {
                 alert('팔로우 하였습니다.');
                 window.location.href = 'friendsAdd.php';
               </script>";
-       // exit;
-    } else {
-        "<script>
-                alert('팔로우 중입니다.');
-                window.location.href = 'friendsAdd.php';
-              </script>";
-    }
+        exit;
+    } 
 } else {
     echo "폼 데이터가 부족합니다.";
 }
