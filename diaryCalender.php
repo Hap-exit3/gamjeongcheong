@@ -1,4 +1,5 @@
 <?php
+
 // DB 연결
 $conn = new mysqli("localhost", "root", "1206", "gamjeongcheongdb");
 if ($conn->connect_error) {

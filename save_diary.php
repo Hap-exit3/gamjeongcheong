@@ -29,7 +29,7 @@ if (!$emotions_pkey) $missing[] = 'emotions_pkey';
 if (!$contents) $missing[] = 'contents';
 
 if (!empty($missing)) {
-    echo "<p style='color:red;'>❌ 필수 항목 누락: " . implode(', ', $missing) . "</p>";
+    echo "<p style='color:red;'> 필수 항목 누락: " . implode(', ', $missing) . "</p>";
     exit;
 }
 
