@@ -135,16 +135,23 @@ $edit_mode = isset($_GET['edit']) && $_GET['edit'] === '1';
         <?php endif; ?>
     </section>
 
-    <section class="mood-card-box">
-        <p>오늘은 기분이 <strong><?= $emotion ?></strong>네요.</p>
-        <p><strong>기분 전환 카드를 발급하시겠습니까?</strong></p>
-        <button onclick="alert('👉 카드 발급 센터로 연결 예정')">카드 발급 센터 바로가기</button>
-    </section>
+<section class="mood-card-box">
+    <p>오늘은 기분이 <strong><?= $emotion ?></strong>네요.</p>
+    <p><strong>기분 전환 카드를 발급하시겠습니까?</strong></p>
+
+    <form action="moodCard.php" method="POST">
+        <input type="hidden" name="diary_entry_pkey" value="<?= $entry_id ?>">
+        <button type="submit">📥 카드 발급 센터 바로가기</button>
+    </form>
+</section>
+
 
     <?php if (!$edit_mode): ?>
     <footer class="button-area">
         <a href="diaryDetail.php?entry_id=<?= $entry_id ?>&edit=1">수정하기</a>
-        <a href="deleteDiary.php?entry_id=<?= $entry_id ?>" class="delete" onclick="return confirm('정말 삭제하시겠습니까?')">삭제하기</a>
+        <a href="#" class="delete" onclick="event.preventDefault(); if(confirm('정말 삭제하시겠습니까?')) confirmDelete(<?= $entry_id ?>)">삭제하기</a>
+
+
     </footer>
     <?php endif; ?>
 </main>
@@ -157,6 +164,25 @@ $edit_mode = isset($_GET['edit']) && $_GET['edit'] === '1';
 </audio>
 <?php endif; ?>
 
+<!-- 삭제 -->
+<script>
+function confirmDelete(entryId) {
+    if (confirm("정말 삭제하시겠습니까?")) {
+        const form = document.createElement('form');
+        form.method = 'POST';
+        form.action = 'diaryEmpty.php';
+
+        const input = document.createElement('input');
+        input.type = 'hidden';
+        input.name = 'entry_id';
+        input.value = entryId;
+        form.appendChild(input);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+}
+</script>
 
 </body>
 </html>
