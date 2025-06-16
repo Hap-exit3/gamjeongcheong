@@ -35,6 +35,6 @@
             ?>
         </select><br><br>
         <input type="hidden" name="users_pkey" value="<?php echo $users_pkey; ?>"> <br>
-        <input type="submit" value="팔로잉 하기">
+        <input type="submit" value="팔로우 하기">
 </body>
 </html>

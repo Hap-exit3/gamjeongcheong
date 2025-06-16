@@ -16,7 +16,6 @@ if(!$conn){
 // 로그인한 사용자 정보는 쿠키에서 가져오기
 $users_pkey = $_COOKIE['users_pkey'] ?? null;
 
-
 $friends_pkey = $_POST['friends_pkey'] ?? null;
 
 $selected_friend_pkey = $_POST['friends_pkey'] ?? null;
@@ -53,12 +52,9 @@ if ($selected_friend_pkey) {
         $status = $row['status'];
 
         if ($status == 1) {
-            echo "친구가 아닙니다.";
+            echo "팔로우하지 않습니다다.";
         } else if ($status == 2) {
-            echo "친구 요청 중입니다.";
-        }else if ($status == 3){
-            echo "친구입니다.";
-        
+            echo "팔로우 중입니다.";
         } else {
             echo "알 수 없는 상태입니다. (status = $status)";
         }

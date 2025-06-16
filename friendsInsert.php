@@ -21,7 +21,7 @@ if (isset($_POST['users_pkey']) && isset($_POST['friends_pkey'])) {
     $check_sql = "SELECT status FROM friends 
                   WHERE users_pkey = $users_pkey AND friends_pkey = $friends_pkey";
     
-echo "$check_sql";
+//echo "$check_sql";
     $check_result = $conn->query($check_sql);
 
     if ($check_result->num_rows > 0) {
@@ -34,16 +34,19 @@ echo "$check_sql";
     }
 
     $sql = "INSERT INTO friends(users_pkey, friends_pkey, status)
-            VALUES ($users_pkey, $friends_pkey, 2)";
+            VALUES ($users_pkey, $friends_pkey, 1)";
 
  if ($conn->query($sql)) {
         echo "<script>
-                alert('친구신청을 완료하였습니다.');
+                alert('팔로우 하였습니다.');
                 window.location.href = 'friendsAdd.php';
               </script>";
-        exit;
+       // exit;
     } else {
-        echo "에러 발생: " . $conn->error;
+        "<script>
+                alert('팔로우 중입니다.');
+                window.location.href = 'friendsAdd.php';
+              </script>";
     }
 } else {
     echo "폼 데이터가 부족합니다.";

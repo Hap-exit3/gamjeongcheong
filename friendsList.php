@@ -13,7 +13,9 @@
         </select>
         <input type="submit" value="친구 상세보기">
         <br><br>
-        <a href="friendsAdd.php">친구 추가하기</a>
+        <a href="friendsAdd.php">팔로잉 하기</a>
+        <br>
+        <a href="friendsIncommingRequest.php">팔로워 확인하기</a>
     </form>
 </body>
 </html>
