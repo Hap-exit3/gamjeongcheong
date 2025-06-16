@@ -1,3 +1,4 @@
+<?php include("auth.php"); ?>
 <html> 
     <head><title>친구목록</title></head>
 <body>
