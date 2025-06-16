@@ -1,45 +1,42 @@
 <?php
-
-setcookie("ZLZN", "콜라", time() + 3600, "/");
-echo $_COOKIE["쿠키"];
-
- //$id = $_POST['id'];
- //$pwd = $_POST['pwd'];
-
- //echo $id," ",
-
 $db_host = "localhost";
 $db_user = "root";
-$db_pwd = "1234";
+$db_pwd = "1206";
 $db_name = "gamjeongcheongdb";
 
 $conn = new mysqli($db_host, $db_user, $db_pwd, $db_name);
 
-if (!$conn) {
+if(!$conn){
     echo "db_error";
     return;
 }
 
-$id = $_POST['id'];
-$password = $_POST['password'];
+$id = $_POST['id'] ?? '';
+$password = $_POST['password'] ?? '';
 
-$sql = "SELECT pkey, id, name FROM users WHERE id='$id' AND password='$password'";
+$sql = "select pkey, name from users where id='$id' and password='$password'"; //DB에서 id, pwd 조회
 $result = mysqli_query($conn, $sql);
 
 $result_login = 0;
-$user_pkey = null;
 
-while ($row = mysqli_fetch_array($result)) {
+while($row = mysqli_fetch_array($result)){
+    //echo $row['name'];
+    //echo $row['id'];
+    //echo $row['pwd'];
+    //echo $row['birth'];
+    //echo "<br>";
+    setcookie("users_pkey", $row['pkey'], time() + 3600, "/");
+    setcookie("users_name", $row['name'], time() + 3600, "/");
     $result_login = 1;
-    $user_pkey = $row['pkey'];
-    $user_name = $row['name'];
-
-    // ✅ 쿠키 설정 (유효기간: 시간)
-    setcookie("user_pkey", $user_pkey, time() + 360000, "/");
-    setcookie("user_name", $user_name, time() + 360000, "/");
 }
 
-$link = ($result_login === 1) ? "main.php" : "signIn.php";
+$link = ""; //login page 넘어갈 때 이용할 Link
+
+if($result_login===1){
+    $link = "main.php"; //login 성공 후, main.php page로 이동한다.
+} else{
+    $link = "signIn.php"; // login 실패 시, login.php page로 돌아간다
+}
 echo("<script> location.replace('$link'); </script>");
 
 mysqli_close($conn);

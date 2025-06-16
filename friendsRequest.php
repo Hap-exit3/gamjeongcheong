@@ -4,7 +4,7 @@ include("auth.php");
 
 $db_host = "localhost";
 $db_user = "root";
-$db_pwd = "1234";
+$db_pwd = "1206";
 $db_name = "gamjeongcheongdb";
 
 $conn = new mysqli($db_host, $db_user, $db_pwd, $db_name);
@@ -21,9 +21,9 @@ $sql = "SELECT pkey, name FROM users Where pkey != $current_user_id;"; //DBÏóêÏÑ
 $result = mysqli_query($conn, $sql);
 
 while($row = mysqli_fetch_array($result)){
-    echo "<option value='$row["pkey"]'>$row["name"]</option>";
+    echo "<option value='".$row["pkey"]."'>".$row["name"]."</option>";
     //echo "dk";
-    //echo $row['id'];1
+    //echo $row['id'];
     //echo $row['pwd'];
     //echo $row['birth'];
     //echo "<br>";
