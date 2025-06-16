@@ -11,7 +11,7 @@ if ($conn->connect_error) {
 // GET으로 entry_id 받아오기
 $entry_id = $_GET['entry_id'] ?? null;
 if (!$entry_id) {
-    echo "❌ 일기 ID가 없습니다.";
+    echo "일기 ID가 없습니다.";
     exit;
 }
 
@@ -34,7 +34,7 @@ if ($row = $result->fetch_assoc()) {
     $weather = htmlspecialchars($row['weather']);
     $emotion = htmlspecialchars($row['emotion']);
 } else {
-    echo "❌ 해당 일기를 찾을 수 없습니다.";
+    echo "해당 일기를 찾을 수 없습니다.";
     exit;
 }
 
