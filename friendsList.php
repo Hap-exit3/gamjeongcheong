@@ -11,7 +11,7 @@
                 include("friendsRequest.php");
              ?>
         </select>
-        <input type="submit" value="친구 상세보기">
+        <input type="submit" value="팔로잉 상세보기">
         <br><br>
         <a href="friendsAdd.php">팔로잉 하기</a>
         <br>
