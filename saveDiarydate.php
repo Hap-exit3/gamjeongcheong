@@ -5,11 +5,11 @@ if ($conn->connect_error) {
     die("DB 연결 실패: " . $conn->connect_error);
 }
 
-// 쿠키에서 user_id 가져오기
-$user_id = $_COOKIE['user_id'] ?? null;
-if (!$user_id) {
-    die("로그인이 필요합니다.");
-}
+// // 쿠키에서 user_id 가져오기
+// $user_id = $_COOKIE['user_id'] ?? null;
+// if (!$user_id) {
+//     die("로그인이 필요합니다.");
+// }
 
 // POST 데이터 수신
 $date = $_POST['date'] ?? null;

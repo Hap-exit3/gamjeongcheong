@@ -2,16 +2,16 @@
 include("auth.php");
 
 // DB 연결
-$conn = new mysqli("localhost", "root", "1206", "gamjeongcheongdb");
+$conn = new mysqli("localhost", "root", "1234", "gamjeongcheongdb");
 if ($conn->connect_error) {
     die("DB 연결 실패: " . $conn->connect_error);
 }
 
-// 쿠키에서 user_id 가져오기 (예: 로그인 시 쿠키에 저장해둠)
-$user_id = $_COOKIE['user_id'] ?? null;
-if (!$user_id) {
-    die("로그인이 필요합니다."); // user_id 없으면 오류 출력
-}
+// // 쿠키에서 user_id 가져오기 (예: 로그인 시 쿠키에 저장해둠)
+// $user_id = $_COOKIE['user_id'] ?? null;
+// if (!$user_id) {
+//     die("로그인이 필요합니다."); // user_id 없으면 오류 출력
+// }
 
 // 날짜 가져오기 (기본은 오늘)
 $date = $_GET['date'] ?? date('Y-m-d');
