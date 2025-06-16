@@ -11,7 +11,7 @@ $conn = new mysqli($db_host, $db_user, $db_pwd, $db_name);
 if(!$conn){
     echo "db_error";
     return;
-}    
+}
 
 // 로그인한 사용자 정보는 쿠키에서 가져오기
 $users_pkey = $_COOKIE['users_pkey'] ?? null;
@@ -19,12 +19,11 @@ $users_pkey = $_COOKIE['users_pkey'] ?? null;
 // 친구 정보는 GET 방식으로 주소에서 받기 (예: friends.php?friends_pkey=2)
 $friends_pkey = $_POST['friends_pkey'] ?? null;
 
-echo "user_Pkey: " . $users_pkey . "<br>";
-echo "friends_Pkey: " . $friends_pkey . "<br>";
+$selected_friend_pkey = $_POST['friends_pkey'] ?? null;
 
 if (isset($_COOKIE['users_pkey']) && isset($_COOKIE['friends_pkey'])) {
     $users_pkey = $_COOKIE['users_pkey'];
-    $friends_pkey = $_COOKIE['friends_pkey'];
+    $friends_pkey = $_POST['friends_pkey'];
 }
     // 친구 상태 확인
     echo "<h3>내 친구목록</h3>";
@@ -68,8 +67,7 @@ if ($result && $result->num_rows > 0) {
 
 // 친구 상태 확인
 if ($selected_friend_pkey) {
-    $sql = "SELECT status FROM friends 
-            WHERE users_pkey = $users_pkey AND friends_pkey = $selected_friend_pkey";
+    $sql = "SELECT pkey, name FROM users WHERE pkey != $users_pkey";
 
     $result = $conn->query($sql);
 
@@ -92,3 +90,5 @@ if ($selected_friend_pkey) {
 
 mysqli_close($conn);
 ?>
+
+
