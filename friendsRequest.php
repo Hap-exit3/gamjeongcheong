@@ -8,16 +8,15 @@ $db_pwd = "1206";
 $db_name = "gamjeongcheongdb";
 
 $conn = new mysqli($db_host, $db_user, $db_pwd, $db_name);
-echo"jd";
 if(!$conn){
     echo "db_error";
     return;
 }
 
-//$users_pkey = $_COOKIE['user_pkey'] ?? null;
-$current_user_id = 3;
+$users_pkey = $_COOKIE['users_pkey'] ?? null;
 
-$sql = "SELECT pkey, name FROM users Where pkey != $current_user_id;"; //DB에서 id, pwd 조회
+
+$sql = "SELECT pkey, name FROM users Where pkey != $users_pkey;"; //DB에서 id, pwd 조회
 $result = mysqli_query($conn, $sql);
 
 while($row = mysqli_fetch_array($result)){
