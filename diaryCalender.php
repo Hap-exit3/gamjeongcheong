@@ -1,12 +1,7 @@
 <?php
 
-<<<<<<< HEAD
-=======
-include("auth.php");
-
->>>>>>> ed00c4b1cba9002f0e03c45d8b6e82eda8fe8d95
 // DB 연결
-$conn = new mysqli("localhost", "root", "1234", "gamjeongcheongdb");
+$conn = new mysqli("localhost", "root", "1206", "gamjeongcheongdb");
 if ($conn->connect_error) {
     die("DB 연결 실패: " . $conn->connect_error);
 }
@@ -78,7 +73,7 @@ function getEmotionIcon($emotion) {
                     $date_str = "$year-$month-" . str_pad($day, 2, '0', STR_PAD_LEFT);
                     $emotion = $diaryData[$date_str] ?? 0;
                     $icon = getEmotionIcon($emotion);
-                    $link = "diaryRouter.php?date=$date_str";
+                    $link = "diaryDateWrite.php?date=$date_str";
                     $class = ($date_str === date('Y-m-d')) ? "today" : "";
                     echo "<td class='$class'><a href='$link'>$day<br>$icon</a></td>";
                     $day++;
