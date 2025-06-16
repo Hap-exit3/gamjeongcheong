@@ -2,7 +2,7 @@
 
 $host = "localhost";
 $user = "root";
-$pwd = "1206";
+$pwd = "1234";
 $db_name = "gamjeongcheongdb";
 
 $conn = new mysqli($host, $user, $pwd, $db_name);

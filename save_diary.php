@@ -1,6 +1,5 @@
 <?php
-include("auth.php"); 
-
+include("auth.php");
 
 // DB 연결
 $conn = new mysqli("localhost", "root", "1234", "gamjeongcheongdb");
@@ -9,16 +8,18 @@ if ($conn->connect_error) {
 }
 
 // POST 데이터 수신
-$users_pkey     = $_POST['user_id'] ?? null;
+$users_pkey     = $_POST['user_id'] ?? 1; // 개발 중엔 1로 고정
 $weathers_pkey  = $_POST['weather_id'] ?? null;
 $emotions_pkey  = $_POST['emotion_id'] ?? null;
 $contents       = $_POST['content'] ?? null;
-$hashtags       = $_POST['hashtags'] ?? '';
+$hashtags       = $_POST['hashtags'] ?? [];
 $insert_date    = date("Y-m-d H:i:s");
+$entry_date     = $_POST['entry_date'] ?? date("Y-m-d"); // 오늘 또는 캘린더 선택 날짜
 
 // 디버깅 출력
 echo "<h2>🔍 POST 데이터 확인</h2><pre>";
 print_r($_POST);
+echo "\n[entry_date]: $entry_date\n";
 echo "</pre>";
 
 // 필수 항목 누락 검사
@@ -33,25 +34,24 @@ if (!empty($missing)) {
     exit;
 }
 
-// 1. diary_entry INSERT
-$diary_sql = "INSERT INTO diary_entry (users_pkey, weathers_pkey, emotions_pkey, contents, insert_date, update_date, is_deleted)
-              VALUES (?, ?, ?, ?, ?, ?, 0)";
+// 1. INSERT 실행
+$diary_sql = "
+    INSERT INTO diary_entry 
+    (users_pkey, weathers_pkey, emotions_pkey, contents, insert_date, update_date, is_deleted, entry_date)
+    VALUES (?, ?, ?, ?, ?, ?, 0, ?)
+";
 $stmt = $conn->prepare($diary_sql);
-$stmt->bind_param("iiisss", $users_pkey, $weathers_pkey, $emotions_pkey, $contents, $insert_date, $insert_date); // ← 수정된 부분!
-$stmt->execute();
+$stmt->bind_param("iiissss", $users_pkey, $weathers_pkey, $emotions_pkey, $contents, $insert_date, $insert_date, $entry_date);
 
-
-if ($stmt->affected_rows > 0) {
+if ($stmt->execute()) {
     $diary_entry_pkey = $conn->insert_id;
 
     // 2. 해시태그 삽입
-    $hashtags = $_POST['hashtags'] ?? [];  // ← 빈 배열로 초기화!
-    $tags = array_filter(array_map('trim', (array)$hashtags));  // ← 혹시 string일 수도 있으니 강제 배열 형변환
-
+    $tags = array_filter(array_map('trim', (array)$hashtags));
     foreach ($tags as $tag) {
         if ($tag === '') continue;
 
-        // 2-1. tag 테이블에 있는지 확인
+        // 2-1. tag 테이블 존재 확인
         $check_stmt = $conn->prepare("SELECT pkey FROM tag WHERE name = ?");
         $check_stmt->bind_param("s", $tag);
         $check_stmt->execute();
@@ -61,7 +61,7 @@ if ($stmt->affected_rows > 0) {
             $check_stmt->bind_result($tag_pkey);
             $check_stmt->fetch();
         } else {
-            // 없으면 삽입 후 pkey 가져오기
+            // 없으면 삽입
             $insert_tag_stmt = $conn->prepare("INSERT INTO tag (name) VALUES (?)");
             $insert_tag_stmt->bind_param("s", $tag);
             $insert_tag_stmt->execute();
@@ -77,16 +77,17 @@ if ($stmt->affected_rows > 0) {
         $map_stmt->close();
     }
 
-    // 저장 성공 후 확인창 → 상세 페이지 이동
+    // 3. 저장 완료 → 상세 페이지 이동
     echo "<script>
-      if (confirm('정말 저장하시겠습니까?')) {
-        location.href = 'diaryDetail.php?entry_id=" . $diary_entry_pkey . "';
-      } else {
-        history.back();
-      }
+        if (confirm('정말 저장하시겠습니까?')) {
+            location.href = 'diaryDetail.php?entry_id=" . $diary_entry_pkey . "';
+        } else {
+            history.back();
+        }
     </script>";
 } else {
-    echo "<script>alert('❌ 저장 실패!'); history.back();</script>";
+    echo "<p style='color:red;'>❌ 저장 실패: " . htmlspecialchars($stmt->error) . "</p>";
+    echo "<script>history.back();</script>";
 }
 
 $conn->close();
