@@ -16,7 +16,7 @@ if (!$entry_id) {
 }
 
 // 일기 상세 정보 조회
-$sql = "SELECT d.contents, d.insert_date, 
+$sql = "SELECT d.contents, d.entry_date, 
                w.description AS weather, 
                e.description AS emotion
         FROM diary_entry d
@@ -30,13 +30,14 @@ $result = $stmt->get_result();
 
 if ($row = $result->fetch_assoc()) {
     $contents = htmlspecialchars($row['contents']);
-    $date = date("Y년 m월 d일 (D)", strtotime($row['insert_date']));
+    $date = date("Y년 m월 d일 (D)", strtotime($row['entry_date']));  
     $weather = htmlspecialchars($row['weather']);
     $emotion = htmlspecialchars($row['emotion']);
 } else {
     echo "해당 일기를 찾을 수 없습니다.";
     exit;
 }
+
 
 // 해시태그 가져오기
 $tag_sql = "SELECT t.name FROM tag_search ts
@@ -149,7 +150,7 @@ $emotionIcon = $emojiMap[$emotion] ?? '🙂';
     <section class="mood-card-box">
         <p>오늘은 기분이 <strong><?= $emotion ?></strong>네요.</p>
         <p><strong>기분 전환 카드를 발급하시겠습니까?</strong></p>
-        <!-- ✅ 여기에 mood card 컴포넌트 삽입 예정 -->
+        <!--  여기에 mood card 컴포넌트 삽입 예정 -->
         <button onclick="alert('👉 카드 발급 센터로 연결 예정')">카드 발급 센터 바로가기</button>
     </section>
 

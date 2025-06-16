@@ -1,7 +1,6 @@
 <?php
 include("auth.php");
 
-
 // DB 연결
 $conn = new mysqli("localhost", "root", "1234", "gamjeongcheongdb");
 if ($conn->connect_error) {
