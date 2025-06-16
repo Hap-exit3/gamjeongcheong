@@ -1,8 +1,5 @@
 <?php
-
-//우선순위 : 2순위위
-
-session_start();
+include("auth.php");
 
 // DB 연결
 $conn = new mysqli("localhost", "root", "1206", "gamjeongcheongdb");

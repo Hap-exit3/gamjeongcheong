@@ -27,7 +27,7 @@ $result = $conn->query($sql);
 <!DOCTYPE html>
 <html>
 <head>
-  <title>받은 친구 요청</title>
+  <title>팔로워 목록</title>
 </head>
 <body>
   <h1> 팔로워 </h1>
