@@ -13,26 +13,28 @@ if(!$conn){
     return;
 }   
 
-if (isset($_POST['users_pkey']) && isset($_POST['friends_pkey']) && isset($_POST['status'])) {
+if (isset($_POST['users_pkey']) && isset($_POST['friends_pkey'])) {
+   // print_r($_POST);
     $users_pkey = $_POST['users_pkey'];
     $friends_pkey = $_POST['friends_pkey'];
-    $status = $_POST['status'];
 
-    $check_sql = "SELECT * FROM friends 
+    $check_sql = "SELECT status FROM friends 
                   WHERE users_pkey = $users_pkey AND friends_pkey = $friends_pkey";
+    
+echo "$check_sql";
     $check_result = $conn->query($check_sql);
 
     if ($check_result->num_rows > 0) {
         // 이미 친구 관계가 존재함
-        echo "<script>
-                alert('이미 친구입니다.');
-                window.location.href = 'friendsAdd.php';
-              </script>";
+        // echo "<script>
+        //         alert('이미 친구입니다.');
+        //         window.location.href = 'friendsAdd.php';
+        //       </script>";
         exit;
     }
 
     $sql = "INSERT INTO friends(users_pkey, friends_pkey, status)
-            VALUES ($users_pkey, $friends_pkey, $status)";
+            VALUES ($users_pkey, $friends_pkey, 2)";
 
  if ($conn->query($sql)) {
         echo "<script>

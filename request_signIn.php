@@ -25,8 +25,8 @@ while($row = mysqli_fetch_array($result)){
     //echo $row['pwd'];
     //echo $row['birth'];
     //echo "<br>";
-    setcookie("users_pkey", $row['pkey'], time() + 3600, "/");
-    setcookie("users_name", $row['name'], time() + 3600, "/");
+    setcookie("users_pkey", $row['pkey'], time() + 3600*3, "/");
+    setcookie("users_name", $row['name'], time() + 3600*3, "/");
     $result_login = 1;
 }
 

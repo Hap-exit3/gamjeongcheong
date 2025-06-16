@@ -14,7 +14,7 @@ if(!$conn){
     return;
 }
 
-//$users_pkey = $_COOKIE['user_pkey'] ?? null;
+//$users_pkey = $_COOKIE['users_pkey'] ?? null;
 $current_user_id = 3;
 
 $sql = "SELECT pkey, name FROM users Where pkey != $current_user_id;"; //DB에서 id, pwd 조회
